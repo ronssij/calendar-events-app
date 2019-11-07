@@ -1,5 +1,8 @@
 module.exports = {
-  plugins: {
-    autoprefixer: {}
+  "plugins": {
+    "autoprefixer": {},
+    "tailwindcss": {
+      "option": "./tailwind.js"
+    }
   }
 }
