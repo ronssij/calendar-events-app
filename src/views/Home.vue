@@ -5,28 +5,22 @@
         <event-form />
       </div>
     </div>
-    <div class="w-3/5 bg-gray-200 h-screen p-6 pt-20">
-      <div>
-        {{ events }}
-      </div>
+    <div class="w-3/5 bg-gray-200 h-screen px-6 py-0 ">
+      <event-calendar />
     </div>
   </div>
 </template>
 
 <script>
 import EventForm from '@/components/EventForm'
-import { mapActions, mapState } from 'vuex'
+import EventCalendar from '@/components/EventCalendar'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'home',
-  components: { EventForm },
+  components: { EventForm, EventCalendar },
   created() {
     this.getList()
-  },
-  computed: {
-    ...mapState({
-      'events': state => state.events
-    }),
   },
   methods: {
     ...mapActions({
@@ -34,7 +28,7 @@ export default {
     }),
     getList() {
       this.fetchEvents().then(() => {
-        console.log('ok kaaeyoh')
+        console.log('Completed')
       }).catch(() => {
         this.$message.error('Oops, Error fetching events.');
       });

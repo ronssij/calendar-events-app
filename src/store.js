@@ -18,15 +18,23 @@ export default new Vuex.Store({
     events: []
   },
   mutations: {
-    setEVents (state, events) {
+    setEvents (state, events) {
       state.events = events.data
     },
+    setEventForm (state, form) {
+      state.form = form
+    }
   },
   actions: {
     fetchEvents ({commit}) {
       return api.get('/api/event/list').then((res) => {
-        commit('setEVents', res.data)
+        commit('setEvents', res.data)
       })
     },
+    createEvent ({commit}, payload) {
+      return api.post('/api/event/create', payload).then((res) => {
+        commit('setEventForm', res.data)
+      })
+    }
   }
 })

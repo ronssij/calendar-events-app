@@ -1,7 +1,7 @@
 <template>
   <el-form class="calendar-event-form" :label-position="labelPosition" label-width="100px" :model="form">
     <el-form-item label="Event">
-      <el-input v-model="form.name" clearable/>
+      <el-input v-model="form.title" clearable/>
     </el-form-item>
     <el-form-item label="Date">
       <el-date-picker
@@ -26,13 +26,13 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" > Save </el-button>
+      <el-button type="primary" @click="createEvent(form)" > Save </el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -44,6 +44,11 @@ export default {
   computed: {
     ...mapState({
       'form': state => state.form
+    })
+  },
+  methods: {
+    ...mapActions({
+      createEvent: 'createEvent'
     })
   },
   watch: {
