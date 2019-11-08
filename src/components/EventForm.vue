@@ -3,7 +3,7 @@
     <el-form-item label="Event" :error="hasError('title', true)" >
       <el-input v-model="form.title" clearable/>
     </el-form-item>
-    <el-form-item label="Date" :error="hasError('days', true)" >
+    <el-form-item label="Date" :error="hasError('range', true)" >
       <el-date-picker
         v-model="dateRange"
         type="daterange"
@@ -56,8 +56,8 @@ export default {
         this.formErrors = {}
         this.$emit('isSaved')
       }).catch((err) => {
-        if ( err.response.status === '422' ) {
-          this.formErrors = err.response.data.error
+        if ( err.response.status === 422 ) {
+          this.formErrors = err.response.data.errors
         }
         this.$message.error('Oops, Error saving events.');
       })
