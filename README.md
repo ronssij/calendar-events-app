@@ -9,4 +9,4 @@
 * Vuetify - Vue Component Library (https://vuetifyjs.com)
 
 ### APP - Deployed on Heroku
-https://calendar-events.herokuapp.com/
+https://calendar-events-app.herokuapp.com/
