@@ -19,7 +19,9 @@ export default new Vuex.Store({
   },
   mutations: {
     setEvents (state, events) {
+      console.log(events)
       state.events = events.data
+      console.log(state.events)
     },
     setEventForm (state, form) {
       state.form = form
