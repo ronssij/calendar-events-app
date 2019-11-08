@@ -1,9 +1,9 @@
 <template>
   <el-form class="calendar-event-form" :label-position="labelPosition" label-width="100px" :model="form">
-    <el-form-item label="Event">
+    <el-form-item label="Event" :error="hasError('title', true)" >
       <el-input v-model="form.title" clearable/>
     </el-form-item>
-    <el-form-item label="Date">
+    <el-form-item label="Date" :error="hasError('days', true)" >
       <el-date-picker
         v-model="dateRange"
         type="daterange"
@@ -26,7 +26,7 @@
       </el-checkbox-group>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="createEvent(form)" > Save </el-button>
+      <el-button type="primary" @click="create(form)" > Save </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -37,6 +37,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
+      formErrors: {},
       labelPosition: 'top',
       dateRange: ''
     };
@@ -49,7 +50,25 @@ export default {
   methods: {
     ...mapActions({
       createEvent: 'createEvent'
-    })
+    }),
+    create (form) {
+      this.createEvent(form).then(() => {
+        this.formErrors = {}
+        this.$emit('isSaved')
+      }).catch((err) => {
+        if ( err.response.status === '422' ) {
+          this.formErrors = err.response.data.error
+        }
+        this.$message.error('Oops, Error saving events.');
+      })
+    },
+    hasError (field, returnMessage = false) {
+      if (this.formErrors[field]) {
+        return returnMessage ? this.formErrors[field][0] : true
+      } else {
+        return returnMessage ? null : false
+      }
+    }
   },
   watch: {
     dateRange (newDate) {
@@ -71,6 +90,9 @@ export default {
   .calendar-event-form {
     .el-form-item__label {
       line-height: 0 !important;
+    }
+    .el-form-item {
+      margin-bottom: 35px;
     }
   }
 

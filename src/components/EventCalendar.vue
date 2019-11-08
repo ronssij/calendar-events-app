@@ -107,7 +107,7 @@ export default {
     viewMore ({date}) {
       this.dialog = true
       this.seeMoreDate = moment(date).format('MMMM DD')
-      this.seeMoreDates = this.events.filter(function(data, i) {
+      this.seeMoreDates = this.events.filter(function(data) {
         return ( data['start'] === date || data['end'] === date );
       })
     }
